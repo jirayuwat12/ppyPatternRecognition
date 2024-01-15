@@ -1,0 +1,8 @@
+README.md
+setup.py
+ppyPatternRecognition/__init__.py
+ppyPatternRecognition/knn.py
+ppyPatternRecognition.egg-info/PKG-INFO
+ppyPatternRecognition.egg-info/SOURCES.txt
+ppyPatternRecognition.egg-info/dependency_links.txt
+ppyPatternRecognition.egg-info/top_level.txt
