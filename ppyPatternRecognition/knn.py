@@ -64,7 +64,7 @@ class KNN():
                 dist = self.distance(centriods[centriod_idx], new_centriod)
                 if not explain:
                     looper.set_postfix({'centriod_move':dist})
-                if dist > 1e-9:
+                if dist > 1e-5:
                     change = True
                 if explain:
                     print(f"for centriod #{centriod_idx} change from {centriods[centriod_idx]} to {new_centriod} which diff {dist} units")
@@ -73,8 +73,11 @@ class KNN():
                 print(df)
 
             # break condition
-            if not change and not explain:
-                looper.set_description_str(f'Fitting KNN for k={k} done at #{iter+1}')
+            if not change:
+                if explain:
+                    print(f"Done at #{iter+1}")
+                else:
+                    looper.set_description_str(f'Fitting KNN for k={k} done at #{iter+1}')
                 break
 
         return df
