@@ -73,7 +73,7 @@ class KNN():
                 print(df)
 
             # break condition
-            if not change:
+            if not change and not explain:
                 looper.set_description_str(f'Fitting KNN for k={k} done at #{iter+1}')
                 break
 
