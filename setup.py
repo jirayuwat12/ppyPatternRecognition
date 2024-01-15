@@ -11,7 +11,7 @@ setuptools.setup(
     description="Pattern Recognition Package",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="www.github.com/jirayuwat12/ppyPatternRecognition",
+    url="https://github.com/jirayuwat12/ppyPatternRecognition",
     packages=setuptools.find_packages(),
     install_requires=[
         'numpy',
