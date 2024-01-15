@@ -1,4 +1,5 @@
 # ppyPatternRecognition
+**[Should read this in github]**
 This is a library about AI model. All the model ideas are come from inclass lecture.
 
 You can see the class github [here](https://github.com/ekapolc/Pattern_2024) which is created by Aj. Ekapol.
