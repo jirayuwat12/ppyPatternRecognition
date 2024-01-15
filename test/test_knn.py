@@ -1,41 +1,102 @@
-import numpy as np
+from enum import unique
+import pytest
+
+from sklearn.datasets import make_blobs
 import pandas as pd
-import unittest
+import numpy as np
 
-from ppyPatternRecognition.knn import KNN
+import sys
+sys.path.append('../ppyPatternRecognition')
+from ppyPatternRecognition import KNN
 
-class KNNTests(unittest.TestCase):
-    def setUp(self):
-        self.data = pd.DataFrame({
-            'feature1': [1, 2, 3, 4, 5],
-            'feature2': [2, 4, 6, 8, 10],
-            'label': [0, 0, 1, 1, 1]
-        })
+def test_knn_stop_before_max():
+    # generate data
+    X, y = make_blobs(n_samples=1000, centers=5, n_features=2, random_state=0)
+    df = pd.DataFrame(X, columns=['x1', 'x2'])
+    df['label'] = y
 
-    def test_fit(self):
-        knn = KNN()
-        df = knn.fit(df=self.data, k=2, inplace=False, explain=False)
-        self.assertEqual(df['label'].nunique(), 2)
+    # KNN
+    knn = KNN()
+    df = knn.fit(df, k=5, explain=False, max_iter=10)
+    assert df is not None
 
-    def test_mean_point(self):
-        knn = KNN()
-        mean = knn.mean_point(self.data)
-        expected_mean = np.array([3.0, 6.0])
-        np.testing.assert_array_equal(mean, expected_mean)
+def test_knn_stop_at_max():
+    # generate data
+    X, y = make_blobs(n_samples=1000, centers=5, n_features=2, random_state=0)
+    df = pd.DataFrame(X, columns=['x1', 'x2'])
+    df['label'] = y
 
-    def test_distance(self):
-        knn = KNN()
-        x1 = np.array([1, 2])
-        x2 = np.array([4, 6])
-        distance = knn.distance(x1, x2)
-        expected_distance = 5.0
-        self.assertAlmostEqual(distance, expected_distance)
-    
-    def test_explain(self):
-        knn = KNN()
-        df = knn.fit(df=self.data, k=2, inplace=False, explain=True)
-        self.assertEqual(df['label'].nunique(), 2)
-        
+    # KNN
+    knn = KNN()
+    df = knn.fit(df, k=5, explain=False, max_iter=1)
+    assert df is not None
 
-if __name__ == '__main__':
-    unittest.main()
+def test_knn_stop_at_max_explain():
+    # generate data
+    X, y = make_blobs(n_samples=1000, centers=5, n_features=2, random_state=0)
+    df = pd.DataFrame(X, columns=['x1', 'x2'])
+    df['label'] = y
+
+    # KNN
+    knn = KNN()
+    df = knn.fit(df, k=5, explain=True, max_iter=1)
+    assert df is not None
+
+def test_knn_stop_before_max_explain():
+    # generate data
+    X, y = make_blobs(n_samples=1000, centers=5, n_features=2, random_state=0)
+    df = pd.DataFrame(X, columns=['x1', 'x2'])
+    df['label'] = y
+
+    # KNN
+    knn = KNN()
+    df = knn.fit(df, k=5, explain=True, max_iter=10)
+    assert df is not None
+
+def test_knn_correctness():
+    # generate data
+    X, y = make_blobs(n_samples=1000, centers=5, n_features=2, random_state=0)
+    df = pd.DataFrame(X, columns=['x1', 'x2'])
+    df['label'] = y
+
+    # KNN
+    knn = KNN()
+    df = knn.fit(df, k=5, explain=False, max_iter=100)
+    unique_label = df['label'].unique()
+    assert len(unique_label) == 5
+
+def test_knn_correctness_explain():
+    # generate data
+    X, y = make_blobs(n_samples=1000, centers=5, n_features=2, random_state=0)
+    df = pd.DataFrame(X, columns=['x1', 'x2'])
+    df['label'] = y
+
+    # KNN
+    knn = KNN()
+    df = knn.fit(df, k=5, explain=True, max_iter=100)
+    unique_label = df['label'].unique()
+    assert len(unique_label) == 5
+
+def test_knn_correctness_many_features():
+    # generate data
+    X, y = make_blobs(n_samples=1000, centers=5, n_features=10, random_state=0)
+    df = pd.DataFrame(X, columns=[f'x{i}' for i in range(1, 11)])
+    df['label'] = y
+
+    # KNN
+    knn = KNN()
+    df = knn.fit(df, k=5, explain=False, max_iter=100)
+    unique_label = df['label'].unique()
+    assert len(unique_label) == 5
+
+def test_knn_correctness_many_features_explain():
+    # generate data
+    X, y = make_blobs(n_samples=1000, centers=5, n_features=10, random_state=0)
+    df = pd.DataFrame(X, columns=[f'x{i}' for i in range(1, 11)])
+    df['label'] = y
+
+    # KNN
+    knn = KNN()
+    df = knn.fit(df, k=5, explain=True, max_iter=100)
+    unique_label = df['label'].unique()
+    assert len(unique_label) == 5
