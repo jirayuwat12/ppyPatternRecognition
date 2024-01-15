@@ -10,11 +10,12 @@ class KNN():
         K nearest neighbor 
         '''
         self.mode=mode
+        self.last_centriods = None
 
     def fit(self,
             df=None,
             k=None,
-            centriods=None,
+            start_centriods=None,
             inplace=False,
             max_iter=1000,
             explain=False):
@@ -26,10 +27,13 @@ class KNN():
         df['label'] = None
 
         # initialization
-        if not centriods:
+        if not start_centriods:
             centriods = df.sample(k).iloc[:, :-1].to_numpy().astype(float)
         elif len(centriods) != k:
             raise ValueError('Invalid centriod\'s shape')
+        else:
+            centriods = start_centriods
+
         if explain:
             print(f"Init centriod : {centriods}")
 
@@ -79,7 +83,7 @@ class KNN():
                 else:
                     looper.set_description_str(f'Fitting KNN for k={k} done at #{iter+1}')
                 break
-
+        self.last_centriods = centriods
         return df
 
     def mean_point(self, df):
