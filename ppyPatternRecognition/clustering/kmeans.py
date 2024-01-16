@@ -28,7 +28,7 @@ class Kmeans():
 
         # initialization
         centriods = None
-        if start_centriods is not None:
+        if start_centriods is None:
             centriods = df.sample(k).iloc[:, :-1].to_numpy().astype(float)
         elif len(centriods) != k:
             raise ValueError('Invalid centriod\'s shape')
