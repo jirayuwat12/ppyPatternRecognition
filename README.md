@@ -16,25 +16,25 @@ You can see the class github [here](https://github.com/ekapolc/Pattern_2024) whi
     pip install -U ppyPatternRecognition
     ```
 
-## K-nearst neighbor
-code [here](./ppyPatternRecognition/knn.py)
+## K-means
+code [here](./ppyPatternRecognition/clustering/kmeans.py)
 
 example
 ```python
-from ppyPatternRecognition import KNN
+from ppyPatternRecognition import Kmeans
 
 df = pd.read_csv(...)
 
-knn = KNN()
+k_means = Kmeans()
 
 # fit the model
-labeled_df = knn.fit(df, k=3)
+labeled_df = k_means.fit(df, k=3)
 
 # print the label
 print(labeled_df['label'])
 
 # get the last centroid
-print(knn.last_centroid)
+print(k_means.last_centroid)
 ```
 - `fit` method will return the dataframe with label column
 - `last_centroid` is the last centroid of the model after fitting
