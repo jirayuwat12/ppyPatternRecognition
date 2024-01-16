@@ -1,2 +1,2 @@
 # clustering
-from .knn import KNN
+from .clustering.kmeans import Kmeans

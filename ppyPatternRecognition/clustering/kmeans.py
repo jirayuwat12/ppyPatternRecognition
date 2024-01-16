@@ -3,11 +3,11 @@ import pandas as pd
 import numpy as np
 from tqdm import tqdm
 
-class KNN():
+class Kmeans():
     def __init__(self,
                  mode='mean'):
         '''
-        K nearest neighbor 
+        K means clustering algorithm
         '''
         self.mode=mode
         self.last_centriods = None
@@ -20,7 +20,7 @@ class KNN():
             max_iter=1000,
             explain=False):
         '''
-        fit KNN with `k` group
+        fit K means with `k` group
         '''
         if not inplace:
             df = df.copy()
@@ -38,7 +38,7 @@ class KNN():
             print(f"Init centriod : {centriods}")
 
         # loop until done
-        looper = tqdm(range(max_iter), desc=f'Fitting KNN for k={k}') \
+        looper = tqdm(range(max_iter), desc=f'Fitting K means for k={k}') \
             if not explain else range(max_iter)
         for iter in looper:
             # assign
@@ -81,7 +81,7 @@ class KNN():
                 if explain:
                     print(f"Done at #{iter+1}")
                 else:
-                    looper.set_description_str(f'Fitting KNN for k={k} done at #{iter+1}')
+                    looper.set_description_str(f'Fitting K means for k={k} done at #{iter+1}')
                 break
         self.last_centriods = centriods
         return df
@@ -115,10 +115,10 @@ if __name__ == "__main__":
     df = pd.DataFrame(X, columns=['x1', 'x2'])
     df['label'] = y
 
-    # KNN
+    # K means
     start = time.time()
-    knn = KNN()
-    knn.fit(df, k=5, explain=False)
+    k_means = Kmeans()
+    k_means.fit(df, k=5, explain=False)
     end = time.time()
     print(f"KNN time : {end-start}")
     print(f"KNN score : {silhouette_score(df.iloc[:, :-1], df['label'])}")
