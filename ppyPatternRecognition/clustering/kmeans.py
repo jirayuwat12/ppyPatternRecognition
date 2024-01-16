@@ -8,6 +8,9 @@ class Kmeans():
                  mode='mean'):
         '''
         K means clustering algorithm
+
+        Parameters:
+        - mode (str): The mode used to calculate the centroid. Default is 'mean'.
         '''
         self.mode=mode
         self.last_centriods = None
@@ -21,6 +24,17 @@ class Kmeans():
             explain=False):
         '''
         fit K means with `k` group
+
+        Parameters:
+        - df (pandas.DataFrame): The input dataframe containing the data points.
+        - k (int): The number of clusters.
+        - start_centriods (numpy.ndarray): The initial centroids. If None, random data points will be selected as centroids.
+        - inplace (bool): Whether to modify the input dataframe in place. Default is False.
+        - max_iter (int): The maximum number of iterations. Default is 1000.
+        - explain (bool): Whether to print the intermediate steps for explanation. Default is False.
+
+        Returns:
+        - pandas.DataFrame: The input dataframe with an additional 'label' column indicating the cluster label for each data point.
         '''
         if not inplace:
             df = df.copy()
@@ -90,6 +104,12 @@ class Kmeans():
     def mean_point(self, df):
         '''
         calculate centriod of given data point
+
+        Parameters:
+        - df (pandas.DataFrame): The input dataframe containing the data points.
+
+        Returns:
+        - numpy.ndarray: The centroid of the given data points.
         '''
         df = df.copy()
         data_point = df.iloc[:, :-1].to_numpy()
@@ -100,6 +120,13 @@ class Kmeans():
     def distance(self, x1, x2):
         '''
         calculate by Euclidean distance
+
+        Parameters:
+        - x1 (numpy.ndarray): The first data point.
+        - x2 (numpy.ndarray): The second data point.
+
+        Returns:
+        - float: The Euclidean distance between x1 and x2.
         '''
         return np.sqrt(((x1-x2)**2).sum())
 
