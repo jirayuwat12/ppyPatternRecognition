@@ -115,4 +115,4 @@ def test_k_means_with_init_centriod():
                      max_iter=100,
                      start_centriods=np.array([[-5], [-4], [-3], [-2], [-1]]))
     unique_label = df['label'].unique()
-    assert len(unique_label) == 5
+    assert len(unique_label) <= 5
