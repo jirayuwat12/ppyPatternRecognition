@@ -1,65 +1,24 @@
 import pytest
 import numpy as np
 from sklearn.datasets import make_regression
+
+import sys
+sys.path.append('../ppyPatternRecognition')
 from ppyPatternRecognition.regression.linear_regression import LinearRegression
 
-def test_linear_regression_fit():
-    # generate data
-    X, y = make_regression(n_samples=100, n_features=1, random_state=0)
+def test_predict():
+    lr = LinearRegression(in_features=1,
+                          init_weights=[5])
 
-    # Linear Regression
-    lr = LinearRegression()
-    lr.fit(X, y)
+    assert np.allclose(lr.predict([[1], [3], [5]]), [5, 15, 25])
 
-    # Check if coefficients are not None
-    assert lr.coef_ is not None
-    assert lr.intercept_ is not None
-
-def test_linear_regression_predict():
-    # generate data
-    X, y = make_regression(n_samples=100, n_features=1, random_state=0)
-
-    # Linear Regression
-    lr = LinearRegression()
-    lr.fit(X, y)
-
-    # Predict
-    y_pred = lr.predict(X)
-
-    # Check if predictions are of correct shape
-    assert y_pred.shape == y.shape
-
-def test_linear_regression_score():
-    # generate data
-    X, y = make_regression(n_samples=100, n_features=1, random_state=0)
-
-    # Linear Regression
-    lr = LinearRegression()
-    lr.fit(X, y)
-
-    # Score
-    score = lr.score(X, y)
-
-    # Check if score is a valid value
-    assert np.isfinite(score)
-
-def test_linear_regression_get_params():
-    # Linear Regression
-    lr = LinearRegression()
-
-    # Get params
-    params = lr.get_params()
-
-    # Check if params is a dictionary
-    assert isinstance(params, dict)
-
-def test_linear_regression_set_params():
-    # Linear Regression
-    lr = LinearRegression()
-
-    # Set params
-    params = {'alpha': 0.5}
-    lr.set_params(**params)
-
-    # Check if params are set correctly
-    assert lr.alpha == 0.5
+def test_fit():
+    lr = LinearRegression(in_features=2,
+                          init_weights_method='zeros')
+    x = [[1, 2], [2, 3], [3, 4], [4, 5]]
+    y = [5, 8, 11, 14]
+    lr.fit(X=x,
+           y=y,
+           epochs=100)
+    
+    assert np.allclose([round(i) for i in lr.predict(x)[0]], y)

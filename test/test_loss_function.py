@@ -1,6 +1,9 @@
 import pytest
 import numpy as np
-from ppyPatternRecognition.loss_function import MSE_loss
+
+import sys
+sys.path.append('../ppyPatternRecognition')
+from ppyPatternRecognition.loss_function import MSE_loss, L1_loss
 
 def test_MSE_loss():
     # Test case 1: Same predicted and actual values
@@ -47,3 +50,38 @@ def test_MSE_loss():
     y_pred = np.array([1, 2, np.inf])
     y_actual = np.array([1, 2, 3])
     assert np.isinf(MSE_loss(y_pred, y_actual))
+
+
+def test_L1_loss_empty_arrays():
+    # Empty arrays
+    y_pred = np.array([])
+    y_actual = np.array([])
+
+    # Calculate L1 loss
+    loss = L1_loss(y_pred, y_actual)
+
+    # Check if loss is 0
+    assert loss == 0
+
+
+def test_L1_loss_same_lengths():
+    # Arrays with same lengths
+    y_pred = np.array([1, 2, 3])
+    y_actual = np.array([4, 5, 6])
+
+    # Calculate L1 loss
+    loss = L1_loss(y_pred, y_actual)
+
+    # Check if loss is correct
+    assert loss == 3.0
+
+def test_L1_loss_negative_values():
+    # Arrays with negative values
+    y_pred = np.array([-1, -2, -3])
+    y_actual = np.array([4, 5, 6])
+
+    # Calculate L1 loss
+    loss = L1_loss(y_pred, y_actual)
+
+    # Check if loss is correct
+    assert loss == 7.0
