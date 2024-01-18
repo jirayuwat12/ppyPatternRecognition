@@ -51,7 +51,7 @@ class LinearRegression(Regression):
         for epoch in range(epochs):
             # calculate gradient
             y_pred = self.predict(X).reshape(1, -1)
-            gradient = ((y-y_pred).reshape(-1, 1)*X).sum(axis=0)
+            gradient = ((y-y_pred.reshape(1, -1)).reshape(-1, 1)*X).sum(axis=0)
             # update weight
             self.weights += (lr*gradient).reshape(-1, 1)
             print(f"Epoch : {epoch+1}/{epochs} | Loss : {MSE_loss(y_pred, y)} | Accuracy : {acc(y_pred, y)}")
