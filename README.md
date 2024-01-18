@@ -41,5 +41,20 @@ print(k_means.last_centroid)
 
 
 ## Linear regression
+code [here](./ppyPatternRecognition/regression/linear_regression.py)
 
-TODO
+example
+```python
+from ppyPatternRecognition import LinearRegression
+
+df = pd.read_csv(...)
+X_train, y_train = ...
+
+linear_regression = LinearRegression()
+
+# fit the model
+linear_regression.fit(X_train, y_train, epochs=1000, lr=0.01)
+
+# predict
+y_pred = linear_regression.predict(X_test)
+```
