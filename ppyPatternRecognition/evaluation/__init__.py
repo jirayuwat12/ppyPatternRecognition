@@ -1,6 +1,6 @@
 import numpy as np
 
-def acc(y_pred, y_actual):
+def accuracy(y_pred, y_actual):
     """
     Calculates the accuracy of the model.
 

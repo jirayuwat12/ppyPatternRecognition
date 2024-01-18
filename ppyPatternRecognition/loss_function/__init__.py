@@ -11,11 +11,10 @@ def L1_loss(y_pred, y_actual):
     Returns:
     float: The mean absolute error (MAE) if the lengths of y_pred and y_actual are greater than 0 and equal, otherwise 0.
     """
-    e = y_pred - y_actual
-    ae = np.abs(e)
-    mae = ae.mean()
+    y_pred = np.array(y_pred)
+    y_actual = np.array(y_actual)
 
-    return mae if len(y_pred) > 0 and len(y_pred) == len(y_actual) else 0
+    return np.abs(y_pred - y_actual).mean()
 
 
 def MSE_loss(y_pred, y_actual):
@@ -32,11 +31,10 @@ def MSE_loss(y_pred, y_actual):
     Note:
     - The lengths of y_pred and y_actual must be equal.
     """
-    e = y_pred - y_actual
-    se = e**2
-    mse = se.mean()
+    y_pred = np.array(y_pred)
+    y_actual = np.array(y_actual)
 
-    return mse if len(y_pred) > 0 and len(y_pred) == len(y_actual) else 0
+    return ((y_pred - y_actual)**2).mean()
 
 
 def L2_loss(y_pred, y_actual):

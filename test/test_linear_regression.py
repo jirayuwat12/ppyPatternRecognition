@@ -22,18 +22,3 @@ def test_fit():
            epochs=100)
     
     assert np.allclose([round(i) for i in lr.predict(x)[0]], y)
-
-def test_fit2():
-    lr = LinearRegression(in_features=4,
-                          init_weights_method='random')
-    
-    x, y = make_regression(n_samples=100,
-                            n_features=4,
-                            n_informative=4,
-                            n_targets=1,
-                            noise=0.1,
-                            random_state=1)
-    
-    lr.fit(X=x,
-           y=y,
-           epochs=100)

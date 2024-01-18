@@ -5,9 +5,11 @@ from sklearn.datasets import make_classification
 from sklearn.model_selection import train_test_split
 
 import sys
+
+from sympy import false
 sys.path.append('../ppyPatternRecognition')
 from ppyPatternRecognition.regression.logistic_regression import LogisticRegression
-from ppyPatternRecognition.evaluation import acc
+from ppyPatternRecognition.evaluation import accuracy
 
 # Test LogisticRegression class
 class TestLogisticRegression:
@@ -95,16 +97,16 @@ class TestLogisticRegression:
         lr = LogisticRegression(in_features=10)
 
         # Generate random data for testing
-        X, y = make_classification(n_samples=100, n_features=10, random_state=42)
+        X, y = make_classification(n_samples=1000, n_features=10, random_state=42)
 
         # Split the data into training and testing sets
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
         # Fit the model on the training data
-        lr.fit(X_train, y_train, epochs=1000, lr=0.01)
+        lr.fit(X_train, y_train, epochs=10, lr=0.01)
 
         # Calculate the accuracy score
-        score = acc(lr.predict(X_test), y_test)
+        score = accuracy(lr.predict(X_test), y_test)
 
         # Check if the calculated score is within the range [0, 1]
         print(score)
