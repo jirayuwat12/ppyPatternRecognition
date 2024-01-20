@@ -60,8 +60,7 @@ class LogisticRegression(LinearRegression):
         Returns:
             ndarray: Predicted class labels.
         """
-        X = np.array(X)
-        return sigmoid(np.dot(X, self.weights.reshape(-1, 1)).reshape(-1)) > threshold
+        return (self.predict_proba(X) >= threshold).astype(int)
     
     def predict_proba(self,
                       X):

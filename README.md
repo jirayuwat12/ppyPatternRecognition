@@ -17,7 +17,7 @@ You can see the class github [here](https://github.com/ekapolc/Pattern_2024) whi
     ```
 
 ## K-means
-code [here](./ppyPatternRecognition/clustering/kmeans.py)
+code [here](https://github.com/jirayuwat12/ppyPatternRecognition/tree/main/ppyPatternRecognition/clustering/kmeans.py)
 
 example
 ```python
@@ -41,7 +41,7 @@ print(k_means.last_centroid)
 
 
 ## Linear regression
-code [here](./ppyPatternRecognition/regression/linear_regression.py)
+code [here](https://github.com/jirayuwat12/ppyPatternRecognition/tree/main/ppyPatternRecognition/regression/linear_regression.py)
 
 example
 ```python
