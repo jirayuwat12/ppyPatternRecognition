@@ -8,7 +8,7 @@ def sigmoid(x):
     - x (float, int, or ndarray): Input value.
 
     Returns:
-    float: The output value after applying the sigmoid function.
+    ndarray: The output value after applying the sigmoid function.
     """
     if isinstance(x, np.ndarray):
         x[x>100] = 100.0
